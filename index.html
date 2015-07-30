@@ -19,34 +19,46 @@
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
         <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            <a href="#">Ad Creative Tech Showcase</a>
-          </li>
-          <li class="active vertical vertical-nav">
-            <a href="#vertical">Vertical</a>
-            <ul class="sidebar-nested">
-              <div class="filter option-set" data-filter-group="vertical">
-                <li><a href="#" class="vertical vertical-all" id="vertical-all" data-filter-value="*">All</a></li>
-                <li><a href="#" class="vertical autos" id="autos" data-filter-value=".autos">Autos</a></li>
-                <li><a href="#" class="vertical cpg-healthcare" id="cpg-healthcare" data-filter-value=".cpg-healthcare">CPG/Healthcare</a></li>
-                <li><a href="#" class="vertical educational" id="educational" data-filter-value=".educational">Educational/Online Services</a></li>
-                <li><a href="#" class="vertical entertainment" id="entertainment" data-filter-value=".entertainment">Entertainment</a></li>
-                <li><a href="#" class="vertical finance" id="finance" data-filter-value=".finance">Finance</a></li>
-                <li><a href="#" class="vertical retail" id="retail" data-filter-value=".retail">QSR/Retail</a></li>
-                <li><a href="#" class="vertical tech" id="tech" data-filter-value=".tech">Tech/Telco</a></li>
-                <li><a href="#" class="vertical travel" id="travel" data-filter-value=".travel">Travel</a></li>
-              </div>
-            </ul>
-          </li>
-          <li class="device device-nav">
-            <a href="#device">Device</a>
-          </li>
-          <li class="ad-format ad-format-nav">
-            <a href="#ad-format">Ad Format</a>
-          </li>
-          <li class="ad-features ad-features-nav">
-            <a href="#ad-features">Ad Features</a>
-          </li>
+          <li class="sidebar-brand"><a href="#">Ad Creative Tech Showcase</a></li>
+          <div class="filters">
+            
+            <li class="active vertical vertical-nav">
+              <a href="#vertical" style="font-size: 20px;">Vertical</a>
+              <ul class="sidebar-nested">
+                <div class="filter option-set" data-filter-group="vertical">
+                  <li><a href="#" class="vertical vertical-all" id="vertical-all" data-filter-value="*">All</a></li>
+                  <li><a href="#" class="vertical autos" id="autos" data-filter-value=".autos">Autos</a></li>
+                  <li><a href="#" class="vertical cpg-healthcare" id="cpg-healthcare" data-filter-value=".cpg-healthcare">CPG/Healthcare</a></li>
+                  <li><a href="#" class="vertical educational" id="educational" data-filter-value=".educational">Educational/Online Services</a></li>
+                  <li><a href="#" class="vertical entertainment" id="entertainment" data-filter-value=".entertainment">Entertainment</a></li>
+                  <li><a href="#" class="vertical finance" id="finance" data-filter-value=".finance">Finance</a></li>
+                  <li><a href="#" class="vertical retail" id="retail" data-filter-value=".retail">QSR/Retail</a></li>
+                  <li><a href="#" class="vertical tech" id="tech" data-filter-value=".tech">Tech/Telco</a></li>
+                  <li><a href="#" class="vertical travel" id="travel" data-filter-value=".travel">Travel</a></li>
+                </div>
+              </ul>
+            </li>
+
+            <li class="device device-nav">
+              <a href="#device" style="font-size: 20px;">Device</a>
+              <ul class="sidebar-nested">
+                <div class="filter option-set" data-filter-group="device">
+                  <li><a href="#" class="device device-all" id="device-all" data-filter-value="*">All</a></li>
+                  <li><a href="#" class="device desktop" id="desktop" data-filter-value=".desktop">Desktop</a></li>
+                  <li><a href="#" class="device tablet" id="tablet" data-filter-value=".tablet">Tablet</a></li>
+                  <li><a href="#" class="device mobile" id="mobile" data-filter-value=".mobile">Mobile</a></li>
+                </div>
+              </ul>
+            </li>
+
+            <li class="ad-format ad-format-nav">
+              <a href="#ad-format">Ad Format</a>
+            </li>
+
+            <li class="ad-features ad-features-nav">
+              <a href="#ad-features">Ad Features</a>
+            </li>
+          </div>
         </ul>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -85,6 +97,14 @@
           <img class="item autos tech retail" data-src="holder.js/320x420?theme=sky&text=autos AND tech AND retail">
           <img class="item finance educational cpg-healthcare" data-src="holder.js/320x420?theme=sky&text=finance AND educational AND cpg-healthcare">
           <img class="item travel entertainment tech" data-src="holder.js/320x420?theme=sky&text=entertainment AND tech AND travel">
+          <p role="separator" class="divider"></p>
+          <img class="item desktop" data-src="holder.js/320x420?theme=sky&text=desktop">
+          <img class="item tablet" data-src="holder.js/320x420?theme=sky&text=tablet">
+          <img class="item mobile" data-src="holder.js/320x420?theme=sky&text=mobile">
+          <p role="separator" class="divider"></p>
+          <img class="item desktop tablet" data-src="holder.js/320x420?theme=sky&text=desktop AND tablet">
+          <img class="item tablet mobile" data-src="holder.js/320x420?theme=sky&text=tablet AND mobile">
+          <img class="item mobile desktop" data-src="holder.js/320x420?theme=sky&text=mobile AND desktop">
         </div>
 
         <!-- /#page-content-wrapper -->

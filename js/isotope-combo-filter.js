@@ -1,10 +1,15 @@
 $(function(){
   // initialize Isotope
   var $container = $('#filter-container');
+  
+  //var comboFilter = getComboFilter(filters);
   $container.isotope({
     itemSelector: '.item',
     layoutMode: 'fitRows'
   });
+
+  // store filter for each group
+  var filters = {};
 
   // bind action on click
   $('.filter li a').click(function() {
