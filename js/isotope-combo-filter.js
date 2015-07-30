@@ -1,6 +1,7 @@
 $(function(){
   // initialize Isotope
-  var $container = $('#filter-container').isotope({
+  var $container = $('#filter-container');
+  $container.isotope({
     itemSelector: '.item',
     layoutMode: 'fitRows'
   });
