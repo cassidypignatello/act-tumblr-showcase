@@ -24,7 +24,11 @@ $(function(){
 
     // get each filter value and add it to the array
     $filterValue = $this.attr('data-filter-value');
-    isoFilters.push($filterValue);
+    if ($filterValue == "*") {
+      isoFilters = [];
+    } else {
+      isoFilters.push($filterValue);
+    }
     
     // concat filter values and pass them to isotope
     var selector = isoFilters.join(', ');
