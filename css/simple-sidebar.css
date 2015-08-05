@@ -129,9 +129,6 @@
     background: none;
 }
 
-.selected li a {
-    color: #ffffff;
-}
 
 @media(min-width:768px) {
     #wrapper {
@@ -158,5 +155,8 @@
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
+    }
+    .selected {
+        color: #ffffff !important;
     }
 }
