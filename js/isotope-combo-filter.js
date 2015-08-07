@@ -14,23 +14,23 @@ $(function(){
   $('.filter li a').click(function() {
     var $this = $(this);
 
-    $('#vertical-all').removeClass('selected');
+    $('.all').removeClass('selected');
     
-    var $optionSet = $this.parents('.option-set');
+    var $optionSet = $('.option-set');
     $this.addClass('selected');
 
     // get each filter value and add it to the array
     $filterValue = $this.attr('data-filter-value');
     if ($filterValue == "*") {
       $optionSet.find('.selected').removeClass('selected');
-      $this.addClass('selected');
+      $('.all').addClass('selected');
       isoFilters = [];
     } else {
       isoFilters.push($filterValue);
     }
     
     // concat filter values and pass them to isotope
-    var selector = isoFilters.join(', ');
+    var selector = isoFilters.join('');
     $container.isotope({ filter: selector });
     return false;
   });
