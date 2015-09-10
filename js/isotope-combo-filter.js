@@ -26,6 +26,8 @@ $(function(){
 
     // get each filter value and add it to an array
     $filterValue = $this.attr('data-filter-value');
+    // put all of this into a function
+    // use window.location.href to grab the URL and get filter values from there
     if ($filterValue == "*") {
       $optionSet.find('.selected').removeClass('selected');
       $('.all').addClass('selected');
@@ -33,9 +35,9 @@ $(function(){
       deviceFilters = [];
       comboFilters = [];
     } else if ($group == "vertical") {
-      vertFilters.push($filterValue);
+        vertFilters.push($filterValue);
     } else if ($group == "device") {
-      deviceFilters.push($filterValue);
+        deviceFilters.push($filterValue);
     }
 
     // iterate over each group's filter values and combine them
@@ -46,20 +48,10 @@ $(function(){
         };
       };
       var selector = comboFilters.join(', ');
-      $container.isotope({ filter: selector });
     } else {
       var selector = vertFilters.join(', ');
-      $container.isotope({ filter: selector });
     }
-
-    console.log(selector);
-    
-    // concat filter values and pass them to isotope
-    // console.log(vertFilters);
-    // console.log(deviceFilters);
-    // var selector = comboFilters.join(', ');
-    // console.log(selector);
-   // $container.isotope({ filter: selector });
+    $container.isotope({ filter: selector });
     return false;
   });
 });
