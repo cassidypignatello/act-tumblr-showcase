@@ -7,11 +7,11 @@ $(function(){
     layoutMode: 'fitRows'
   });
 
-  var filters = {};
-
   // store filter values in respective arrays
   var vertFilters = [];
   var deviceFilters = [];
+  var totalLength = 0;
+  //var result = [];
 
   // bind action on click
   $('.filter li a').click(function() {
@@ -36,41 +36,43 @@ $(function(){
       comboFilters = [];
     } else if ($group == "vertical") {
         vertFilters.push($filterValue);
-        filters[$group] = vertFilters;
+        totalLength++;
     } else if ($group == "device") {
         deviceFilters.push($filterValue);
-        filters[$group] = deviceFilters;
+        totalLength++;
     }
 
-    getComboFilters(filters);
+    // TODO: Write a way to compensate for deviceFilters not being selected
+    console.log(vertFilters.length);
 
-    function getComboFilters(choices) {
-      var comboFilters = [];
-      var i = 0;
-      var j = 0;
-      //for (var prop in choices) {
-        //choices[prop][0] + 
-        //choices[prop].forEach(function(choice) {
-          //console.log(choice + choices[prop][i]);
-          //console.log(choices[prop]);
-          console.log(choices['vertical'][0] + choices['device'][0]);
-          //console.log(choice);
-        //});
-      //}
-    }
-    // iterate over each group's filter values and combine them
-   /* if (deviceFilters.length > 0) {
-      for (var i = 0; i < vertFilters.length; i++) {
-        for (var j = 0; j < deviceFilters.length; j++) {
-          comboFilters.push(vertFilters[i] + deviceFilters[j]);
-        };
-      };
-      var selector = comboFilters.join(', ');
-    } else {
-      var selector = vertFilters.join(', ');
-    } */
-  
-   // $container.isotope({ filter: selector });
-    return false;
+    var allFilters = getComboFilters(vertFilters);
+
+    selectFilters(allFilters);
+
+    // console.log(result);
+    // return false;
   });
+
+  function getComboFilters() {
+    return _.reduce(arguments, function(a, b) {
+      return _.flatten(_.map(a, function(x) {
+          return _.map(b, function(y) {
+            return x.concat([y]);
+          });
+      }), true);
+    }, [ [] ]);
+  }
+
+  function selectFilters(filterElems) {
+    var result = [];
+    for (var i = 0; i < totalLength; i++) {
+      var combined = _.reduce(filterElems[i], function(memo, num) {
+        return memo + num;
+      });
+      result.push(combined);
+    }
+    console.log(result.join(', '));
+    var selector = result.join(', ');
+    $container.isotope({ filter: selector });
+  }
 });
