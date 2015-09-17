@@ -10,7 +10,8 @@ $(function(){
   // store filter values in respective arrays
   var vertFilters = [];
   var deviceFilters = [];
-  var totalLength = 0;
+  var allFilters = [];
+  // var totalLength = 0;
   //var result = [];
 
   // bind action on click
@@ -34,25 +35,34 @@ $(function(){
       vertFilters = [];
       deviceFilters = [];
       comboFilters = [];
+      $container.isotope({ filter: $filterValue });
     } else if ($group == "vertical") {
         vertFilters.push($filterValue);
-        totalLength++;
+        // totalLength++;
     } else if ($group == "device") {
         deviceFilters.push($filterValue);
-        totalLength++;
+        // totalLength++;
     }
 
     // TODO: Write a way to compensate for deviceFilters not being selected
-    console.log(vertFilters.length);
+    // Find way to display filters again after selecting "All" - var combined is being passed as empty array, read as undefined
+    if (deviceFilters.length == 0 && vertFilters.length > 0) {
+      $container.isotope({ filter: vertFilters.join(', ') });
+    } else if (vertFilters.length == 0 && deviceFilters.length > 0) {
+      $container.isotope({ filter: deviceFilters.join(', ') });
+    } else if (vertFilters.length > 0 && deviceFilters.length > 0) {
+      allFilters = getComboFilters(vertFilters, deviceFilters);  
+      selectFilters(allFilters, allFilters.length);
+    }
 
-    var allFilters = getComboFilters(vertFilters);
-
-    selectFilters(allFilters);
-
-    // console.log(result);
-    // return false;
+    // console.log("vertFilters:" + vertFilters);
+    // console.log("deviceFilters:" + deviceFilters);
+    console.log("allFilters:" + allFilters);
+    console.log("allFilters length:" + allFilters.length);
+    
   });
 
+  // Maybe you need to return a unique array here?
   function getComboFilters() {
     return _.reduce(arguments, function(a, b) {
       return _.flatten(_.map(a, function(x) {
@@ -63,7 +73,7 @@ $(function(){
     }, [ [] ]);
   }
 
-  function selectFilters(filterElems) {
+  function selectFilters(filterElems, totalLength) {
     var result = [];
     for (var i = 0; i < totalLength; i++) {
       var combined = _.reduce(filterElems[i], function(memo, num) {
@@ -71,7 +81,9 @@ $(function(){
       });
       result.push(combined);
     }
-    console.log(result.join(', '));
+    console.log("Result:" + result);
+    console.log("Combined:" + combined);
+    console.log("totalLength:" + totalLength);
     var selector = result.join(', ');
     $container.isotope({ filter: selector });
   }
