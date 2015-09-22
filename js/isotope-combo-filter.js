@@ -30,16 +30,21 @@ $(function(){
       vertFilters = [];
       deviceFilters = [];
       comboFilters = [];
+      console.log($container.isotope({ filter: $filterValue }));
       $container.isotope({ filter: $filterValue });
     } else if ($group == "vertical")
         vertFilters.push($filterValue);
       else if ($group == "device") 
         deviceFilters.push($filterValue);
 
-    if (deviceFilters.length == 0 && vertFilters.length > 0) 
+    if (deviceFilters.length == 0 && vertFilters.length > 0) {
+      console.log($container.isotope({ filter: vertFilters.join(', ') }));
       $container.isotope({ filter: vertFilters.join(', ') });
-    else if (vertFilters.length == 0 && deviceFilters.length > 0) 
+    }
+    else if (vertFilters.length == 0 && deviceFilters.length > 0) {
+      console.log($container.isotope({ filter: vertFilters.join(', ') }));
       $container.isotope({ filter: deviceFilters.join(', ') });
+    }  
     else if (vertFilters.length > 0 && deviceFilters.length > 0) {
       allFilters = getComboFilters(vertFilters, deviceFilters);  
       selectFilters(allFilters, allFilters.length);
@@ -65,6 +70,7 @@ $(function(){
       result.push(combined);
     }
     var selector = result.join(', ');
+    console.log($container.isotope({ filter: selector }));
     $container.isotope({ filter: selector });
   }
 });
