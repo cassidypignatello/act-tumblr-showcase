@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{Title}{block:PostTitle}: {PostTitle}{/block:PostTitle}</title>
+    {block:Description}
+    <meta name="description" content="{MetaDescription}">
+    {/block:Description}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Tumblr Theme configuration -->
+    <meta name="color:Background" content="#FFFFFF"/>
+    <meta name="color:Text" content="#000000"/>
+    <meta name="color:Link" content="#0000FF"/>
+    <meta name="color:Link Hover" content="#FF0000"/>
+    <meta name="color:Link Visited" content="#800080"/>
+
+    <meta name="font:Site Font" content=""/>
+
+    <meta name="text:Footer Text" content=""/>
+    <meta name="text:Google Analytics ID" content=""/>
+
+    <meta name="image:Header" content=""/>
+
+    <meta name="if:Show Archive" content="1"/>
+    <meta name="if:Show RSS" content="0"/>
+    <meta name="if:Show Search" content="0"/>
+
+    <meta name="if:Use Time Ago" content="0"/>
+    <meta name="if:Use HighRes Photos" content="1"/>
+    <meta name="if:Use Number Pagination" content="0"/>
+
+    <!-- END Tumblr Theme configuration -->
+
+    <link rel="shortcut icon" href="{Favicon}">
+    <link rel="apple-touch-icon" href="{PortraitURL-128}">
+    <link rel="alternate" type="application/rss+xml" href="{RSS}">
+
+    <link rel="stylesheet" href="https://raw.github.com/wxrod/Tumblr-HTML5-Blank-Theme/master/css/normalize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://static.tumblr.com/yjv031h/6EPnv599w/simple-sidebar.css">
+    <link rel="stylesheet" href="http://static.tumblr.com/yjv031h/Wr6nv599v/isotope.css">
+
+    <script src="https://raw.github.com/wxrod/Tumblr-HTML5-Blank-Theme/master/js/vendor/modernizr.min.js"></script>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.1/isotope.pkgd.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+      body{
+        background:{color:Background};
+        font-family:{font:Site Font};
+        color:{color:Text};
+      }
+      a{
+        color:{color:Link};
+      }
+      a:hover{
+        color:{color:Link Hover};
+      }
+      a:visited{
+        color:{color:Link Visited};
+      }
+      {CustomCSS}
+    </style>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+    <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+    <![endif]-->
+    <div id="wrapper">
+      <!--PAGE HEADER ******************************************************************* -->
+      <header>
+        {block:IfHeaderImage}
+          <div id="logo"><a href="/"><img src="{image:Header}" alt="{Title}"/></a></div>
+        {/block:IfHeaderImage}
+        {block:IfNotHeaderImage}
+        {/block:IfNotHeaderImage}
+        {block:Description}
+          <p id="description">{Description}</p>
+        {/block:Description}
+        <nav>
+          <ul>
+            {block:HasPages}
+            {block:Pages}
+            <li><a href="{URL}">{Label}</a></li>
+            {/block:Pages}
+            {/block:HasPages}
+            {block:AskEnabled}
+            <li><a href="/ask">{AskLabel}</a></li>
+            {/block:AskEnabled}
+            {block:SubmissionsEnabled}
+            <li><a href="/submit">{SubmitLabel}</a></li>
+            {/block:SubmissionsEnabled}
+            {block:IfShowArchive}
+            {/block:IfShowArchive}
+            {block:IfShowRSS}
+            <li><a href="{RSS}">{lang:RSS}</a></li>
+            {/block:IfShowRSS}
+          </ul>
+          {block:IfShowSearch}
+          <form action="/search" method="get" class="search">
+            <input type="text" name="q" placeholder="{lang:Search}">
+          </form>
+          {/block:IfShowSearch}
+        </nav>
+        {block:DayPage}
+          <h2>{Month} {DayOfMonth}, {Year}</h2>
+        {/block:DayPage}
+        {block:TagPage}
+          <h2>Posts {lang:Tagged with} "{Tag}"</h2>
+        {/block:TagPage}
+        {block:SearchPage}
+          <h2>{lang:Found SearchResultCount results for SearchQuery}</h2>
+        {/block:SearchPage}
+        {block:NoSearchResults}
+          <h2>{lang:No posts containing SearchQuery}</h2>
+        {/block:NoSearchResults}
+      </header>
+      <!--PAGE LOOP ******************************************************************* -->
+      <div id="wrapper">
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="#">Ad Creative Tech Showcase</a></li>
+          <div class="filters">
+            <li class="active vertical vertical-nav">
+              <a href="#vertical" style="font-size: 20px;">Vertical</a>
+              <ul class="sidebar-nested">
+                <div class="filter option-set" data-filter-group="vertical">
+                  <li><a href="#" class="vertical all" id="vertical-all" data-filter-value="*">All</a></li>
+                  <li><a href="#" id="autos" data-filter-value=".autos">Autos</a></li>
+                  <li><a href="#" class="vertical cpg-healthcare" id="cpg-healthcare" data-filter-value=".cpg-healthcare">CPG/Healthcare</a></li>
+                  <li><a href="#" class="vertical educational" id="educational" data-filter-value=".educational">Educational/Online Services</a></li>
+                  <li><a href="#" class="vertical entertainment" id="entertainment" data-filter-value=".entertainment">Entertainment</a></li>
+                  <li><a href="#" class="vertical finance" id="finance" data-filter-value=".finance">Finance</a></li>
+                  <li><a href="#" class="vertical retail" id="retail" data-filter-value=".retail">QSR/Retail</a></li>
+                  <li><a href="#" class="vertical tech" id="tech" data-filter-value=".tech">Tech/Telco</a></li>
+                  <li><a href="#" class="vertical travel" id="travel" data-filter-value=".travel">Travel</a></li>
+                </div>
+              </ul>
+            </li>
+
+            <li class="device device-nav">
+              <a href="#device" style="font-size: 20px;">Device</a>
+              <ul class="sidebar-nested">
+                <div class="filter option-set" data-filter-group="device">
+                  <li><a href="#" class="device all" id="device-all" data-filter-value="*">All</a></li>
+                  <li><a href="#" class="device desktop" id="desktop" data-filter-value=".desktop">Desktop</a></li>
+                  <li><a href="#" class="device tablet" id="tablet" data-filter-value=".tablet">Tablet</a></li>
+                  <li><a href="#" class="device mobile" id="mobile" data-filter-value=".mobile">Mobile</a></li>
+                </div>
+              </ul>
+            </li>
+
+            <li class="ad-format ad-format-nav">
+              <a href="#ad-format">Ad Format</a>
+            </li>
+
+            <li class="ad-features ad-features-nav">
+              <a href="#ad-features">Ad Features</a>
+            </li>
+          </div>
+        </ul>
+      </div>
+      <!-- /#sidebar-wrapper -->
+      
+      <!-- Page Content -->
+      <div id="page-content-wrapper">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+              <a href="#menu-toggle" class="btn btn-default" id="menu-toggle">Toggle Menu</a>
+            </div>
+          </div>
+        </div>
+        <p role="separator" class="divider"></p>
+        <!-- Posts for ad creative to be filtered go here -->
+        <div class="container-fluid filter-container isotope" id="main" role="main">
+        {block:Posts}
+
+        {block:Text}
+          <article class="post text">
+            {block:Title}
+            <header>
+              <h2 class="entry-title">{Title}</h2>
+            </header>
+            {/block:Title}
+            <p>
+              {Body}
+            </p>
+        {/block:Text}
+
+        {block:Photo}
+          <article class="post photo">
+            <figure>
+              {LinkOpenTag}
+                {block:IfUseHighResPhotos}
+                  <img src="{PhotoURL-HighRes}" alt="{PhotoAlt}" />
+                {/block:IfUseHighResPhotos}
+                {block:IfNotUseHighResPhotos}
+                  <img src="{PhotoURL-500}" alt="{PhotoAlt}" />
+                {/block:IfNotUseHighResPhotos}
+              {LinkCloseTag}
+
+              {block:IfNotUseHighResPhotos}
+                {block:HighRes}
+                <a class="high-res" href="{PhotoURL-HighRes}">High-Res</a>
+                {/block:HighRes}
+              {/block:IfNotUseHighResPhotos}
+
+              {block:Caption}
+                <figcaption>
+                  {Caption}
+                </figcaption>
+              {/block:Caption}
+            </figure>
+        {/block:Photo}
+
+        {block:Photoset}
+          <article class="post photoset">
+            <figure>
+              {Photoset-500}
+              {block:Caption}
+                <figcaption>
+                  {Caption}
+                </figcaption>
+              {/block:Caption}
+            </figure>
+        {/block:Photoset}
+
+        {block:Quote}
+          <article class="post quote">
+            <blockquote>{Quote}</blockquote>
+            {block:Source}
+              <footer>{Source}</footer>
+            {/block:Source}
+        {/block:Quote}
+
+        {block:Link}
+          <article class="post link">
+            <header>
+              <h2>
+                <a href="{URL}" {Target}>{Name}</a>
+              </h2>
+            </header>
+            {block:Description}
+            <p> {Description} </p>
+            {/block:Description}
+        {/block:Link}
+
+        {block:Chat}
+          <article class="post chat">
+            {block:Title}
+            <header>
+              <h2>{Title}</h2>
+            </header>
+            {/block:Title}
+            <dialog>
+              {block:Lines}
+                {block:Label}
+                  <dt class="{Alt} {UserNumber}">
+                    {Label}
+                  </dt>
+                {/block:Label}
+                <dd> {Line} </dd>
+              {/block:Lines}
+            </dialog>
+        {/block:Chat}
+
+        {block:Audio}
+          <article class="post audio">
+            <header>
+              <h2>
+                {block:Artist}
+                  {Artist}
+                {/block:Artist}
+
+                {block:TrackName}
+                  {TrackName}
+                {/block:TrackName}
+              </h2>
+            </header>
+            <figure>
+              {block:AlbumArt}
+                <img src="{AlbumArtURL}"/>
+              {/block:AlbumArt}
+
+              {block:AudioPlayer}
+                {AudioPlayer}
+              {/block:AudioPlayer}
+
+              {block:Caption}
+                <figcaption>
+                  {Caption}
+                </figcaption>
+              {/block:Caption}
+            </figure>
+        {/block:Audio}
+
+        {block:Video}
+          <article class="post video">
+            <figure>
+              {Video-500}
+              {block:Caption}
+                <figcaption>
+                  {Caption}
+                </figcaption>
+              {/block:Caption}
+            </figure>
+        {/block:Video}
+
+        {block:Answer}
+          <article class="post answer">
+            <dialog>
+              <dt><img src="{AskerPortraitURL-16}"> {lang:Asker asked 2}: </dt>
+              <dd>{Question}</dd>
+
+              <dd>{Answer}</dd>
+            </dialog>
+        {/block:Answer}
+
+            <footer>
+              {block:NoteCount}
+                <div class="notes"><a href="{Permalink}">{lang:Notes}: {NoteCount}</a></div>
+              {/block:NoteCount}
+              {block:HasTags}
+                <ul>
+                  {block:Tags}
+                  <li><a href="{TagURL}">#{Tag}</a></li>
+                  {/block:Tags}
+                </ul>
+              {/block:HasTags}
+
+              {block:Date}
+              <time datetime="{Year}-{MonthNumberWithZero}-{DayOfMonthWithZero}T{24HourWithZero}:{Minutes}:{Seconds}">
+                <a href="{Permalink}">
+                  {block:IfUseTimeAgo}
+                    {TimeAgo}
+                  {/block:IfUseTimeAgo}
+                  {block:IfNotUseTimeAgo}
+                    {DayOfMonth} {ShortMonth} {Year}
+                  {/block:IfNotUseTimeAgo}
+                </a>
+              </time>
+              {/block:Date}
+
+              {block:NoteCount}
+                <a href="{Permalink}">{NoteCount}</a>
+              {/block:NoteCount}
+
+              {block:PermalinkPage}
+                {block:PostNotes}<div>{PostNotes}</div>{/block:PostNotes}
+              {/block:PermalinkPage}
+            </footer>
+          </article>
+        {/block:Posts}
+      </div>
+
+        <!-- /#page-content-wrapper -->
+      </div>
+    <!-- /#wrapper -->
+    </div>
+      <!--PAGE FOOTER ******************************************************************* -->
+      <footer>
+        {block:PermalinkPagination}
+          <nav>
+            {block:PreviousPost}<a href="{PreviousPost}">« {lang:Previous}</a>{/block:PreviousPost}
+            {block:NextPost}<a href="{NextPost}">{lang:Next} »</a>{/block:NextPost}
+          </nav>
+        {/block:PermalinkPagination}
+
+        {block:IndexPage}
+          {block:Pagination}
+            <nav>
+              {block:PreviousPage}<a href="{PreviousPage}">« {lang:Newer}</a>{/block:PreviousPage}
+
+              {block:IfUseNumberPagination}
+                {block:JumpPagination length="5"}
+                    {block:CurrentPage}
+                        <span>{PageNumber}</span>
+                    {/block:CurrentPage}
+                    {block:JumpPage}
+                        <a href="{URL}">{PageNumber}</a>
+                    {/block:JumpPage}
+                {/block:JumpPagination}
+              {/block:IfUseNumberPagination}
+
+              {block:NextPage}<a href="{NextPage}">{lang:Older} »</a>{/block:NextPage}
+            </nav>
+          {/block:Pagination}
+        {/block:IndexPage}
+        <p>{text:Footer Text}</p>
+      </footer>
+    </div>
+    <script>
+      $(function(){
+          // initialize Isotope
+          var $container = $('.filter-container');
+          
+          $container.isotope({
+            itemSelector: '.item',
+            layoutMode: 'fitRows'
+          });
+        
+          // store filter values in respective arrays
+          var vertFilters = [];
+          var deviceFilters = [];
+          var allFilters = [];
+        
+          // bind action on click
+          $('.filter li a').click(function() {
+            var $this = $(this);
+            $('.all').removeClass('selected');
+            var $optionSet = $('.option-set');
+            $this.addClass('selected');
+            // get each group value
+            var $group = $this.closest('div').attr('data-filter-group');
+            // get each filter value
+            var $filterValue = $this.attr('data-filter-value');
+        
+            if ($filterValue == "*") {
+              $optionSet.find('.selected').removeClass('selected');
+              $('.all').addClass('selected');
+              vertFilters = [];
+              deviceFilters = [];
+              comboFilters = [];
+              //console.log($container.isotope({ filter: $filterValue }));
+              $container.isotope({ filter: $filterValue });
+            } else if ($group == "vertical")
+                vertFilters.push($filterValue);
+              else if ($group == "device") 
+                deviceFilters.push($filterValue);
+        
+            if (deviceFilters.length == 0 && vertFilters.length > 0) {
+             // console.log($container.isotope({ filter: vertFilters.join(', ') }));
+              $container.isotope({ filter: vertFilters.join(', ') });
+            }
+            else if (vertFilters.length == 0 && deviceFilters.length > 0) {
+             // console.log($container.isotope({ filter: vertFilters.join(', ') }));
+              $container.isotope({ filter: deviceFilters.join(', ') });
+            }  
+            else if (vertFilters.length > 0 && deviceFilters.length > 0) {
+              allFilters = getComboFilters(vertFilters, deviceFilters);  
+              selectFilters(allFilters, allFilters.length);
+            }
+          });
+        
+          function getComboFilters() {
+            return _.reduce(arguments, function(a, b) {
+              return _.flatten(_.map(a, function(x) {
+                  return _.map(b, function(y) {
+                    return x.concat([y]);
+                  });
+              }), true);
+            }, [ [] ]);
+          }
+        
+          function selectFilters(filterElems, totalLength) {
+            var result = [];
+            for (var i = 0; i < totalLength; i++) {
+              var combined = _.reduce(filterElems[i], function(memo, num) {
+                return memo + num;
+              });
+              result.push(combined);
+            }
+            var selector = result.join(', ');
+           // console.log($container.isotope({ filter: selector }));
+            $container.isotope({ filter: selector });
+          }
+        });
+    </script>
+    <script>
+      $("#menu-toggle").click(function(e) {
+          e.preventDefault();
+          $("#wrapper").toggleClass("toggled");
+      });
+    </script>
+    {block:IfGoogleAnalyticsID}
+    <script>
+      var _gaq=[['_setAccount','{text:Google Analytics ID}'],['_trackPageview']];
+      (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+    </script>
+    {/block:IfGoogleAnalyticsID}
+  </body>
+</html>
