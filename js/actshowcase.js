@@ -356,6 +356,14 @@ $(document).ajaxError(function(c, d, b) {
         $(".more").remove();
     }
 });
+$('.filter li').hover(function() {
+    if (!$(this).hasClass('active'))
+        $(this).addClass('active-hover');
+    else if ($(this).hasClass('active') && $(this).hasClass('select-all'))
+        $(this).css('cursor', 'default');
+}, function() {
+    $(this).removeClass('active-hover');
+});
 $(".filter li").click(function() {
     var $this = $(this);
     var $optionSet = $('.option-set');
@@ -363,12 +371,14 @@ $(".filter li").click(function() {
     var $filterValue = $this.children().attr('data-filter-value');
 
     $this.addClass('active');
-    $('.select-all').removeClass('active');
+    $('.select-all').removeClass('active').css('cursor', 'pointer');
 
     if ($filterValue === "*") {
         vertFilters = [];
         deviceFilters = [];
         comboFilters = [];
+        $optionSet.find('.active').removeClass('active');
+        $('.select-all').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
     } else if ($group === "vertical")
         vertFilters.push($filterValue);
