@@ -356,11 +356,11 @@ $(document).ajaxError(function(c, d, b) {
         $(".more").remove();
     }
 });
-$(".filter a").click(function() {
+$(".filter li").click(function() {
     var $this = $(this);
     var $optionSet = $('.option-set');
     var $group = $this.closest('div').attr('data-filter-group');
-    var $filterValue = $this.attr('data-filter-value');
+    var $filterValue = $this.children().attr('data-filter-value');
 
     if ($filterValue === "*") {
         vertFilters = [];
