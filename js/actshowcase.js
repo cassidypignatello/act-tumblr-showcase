@@ -362,6 +362,9 @@ $(".filter li").click(function() {
     var $group = $this.closest('div').attr('data-filter-group');
     var $filterValue = $this.children().attr('data-filter-value');
 
+    $this.addClass('active');
+    $('.select-all').removeClass('active');
+
     if ($filterValue === "*") {
         vertFilters = [];
         deviceFilters = [];
