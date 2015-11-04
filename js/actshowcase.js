@@ -407,24 +407,3 @@ function selectFilters(filterElems, totalLength) {
 domain = window.location.protocol + "//" + window.location.hostname;
 getTags();
 listTypes();
-
-
-
-$(document).scroll(function(){
-    
-    
-            $posts.isotope('reLayout');
-           // alert();
-/*
-        setTimeout(function(){ 
-        alert('isotope');
-        setInterval(function(){ 
-            console.log('iso');
-            $container.isotope('layout');
-           
-            }, 200);
-        
-    }, 1000);
-*/
-
-});
