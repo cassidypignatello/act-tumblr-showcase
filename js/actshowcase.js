@@ -8,6 +8,7 @@ var firstLoad = true;
 var emptyNav = false;
 var firstPhoto = true;
 var $container = $('#posts');
+var $filterItems = $('.filter li');
 var vertFilters = [];
 var deviceFilters = [];
 var allFilters = [];
@@ -356,28 +357,30 @@ $(document).ajaxError(function(c, d, b) {
         $(".more").remove();
     }
 });
-$('.filter li').hover(function() {
-    var hasActiveClass = $(this).hasClass('active');
-    if (!hasActiveClass) {
+$filterItems.hover(function() {
+    var $hasActiveClass = $(this).hasClass('active');
+    var $selectAll = $('.select-all, .select-all > a');
+    if (!$hasActiveClass) {
         $(this).addClass('active-hover');
-        $('.select-all, .select-all > a').css('cursor', 'pointer');
+        $selectAll.css('cursor', 'pointer');
     }
-    else if (hasActiveClass && $(this).hasClass('select-all'))
-        $('.select-all, .select-all > a').css('cursor', 'default');
+    else if ($hasActiveClass && $(this).hasClass('select-all'))
+        $selectAll.css('cursor', 'default');
 }, function() {
     $(this).removeClass('active-hover');
 });
 $(".nav-section h3").click(function(){
-  var hasClass = $(this).closest('.nav-section').children('ul').hasClass("nav-section-active");   
-  if (!hasClass) {
-    $(this).closest('.nav-section').children('ul').addClass('nav-section-active');
-    $(this).children('img.section-arrow').addClass('section-arrow-active');
+  var $navList = $(this).closest('.nav-section').children('ul');
+  var $navArrow = $(this).children('img.section-arrow');
+  if (!$navList.hasClass("nav-section-active")) {
+    $navList.addClass('nav-section-active');
+    $navArrow.addClass('section-arrow-active');
   } else {
-    $(this).closest('.nav-section').children('ul').removeClass('nav-section-active');
-    $(this).children('img.section-arrow').removeClass('section-arrow-active');
+    $navList.removeClass('nav-section-active');
+    $navArrow.removeClass('section-arrow-active');
   }
 });
-$(".filter li").click(function() {
+$filterItems.click(function() {
     var $this = $(this);
     var $optionSet = $('.option-set');
     var $group = $this.closest('div').attr('data-filter-group');
@@ -385,7 +388,7 @@ $(".filter li").click(function() {
 
     $('.select-all').removeClass('active');
     $this.addClass('active');
-    
+
     if ($filterValue === "*") {
         vertFilters = [];
         deviceFilters = [];
