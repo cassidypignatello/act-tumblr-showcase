@@ -358,10 +358,12 @@ $(document).ajaxError(function(c, d, b) {
 });
 $('.filter li').hover(function() {
     var hasActiveClass = $(this).hasClass('active');
-    if (!hasActiveClass)
+    if (!hasActiveClass) {
         $(this).addClass('active-hover');
+        $('.select-all, .select-all > a').css('cursor', 'pointer');
+    }
     else if (hasActiveClass && $(this).hasClass('select-all'))
-        $(this).css('cursor', 'default');
+        $('.select-all, .select-all > a').css('cursor', 'default');
 }, function() {
     $(this).removeClass('active-hover');
 });
@@ -381,15 +383,15 @@ $(".filter li").click(function() {
     var $group = $this.closest('div').attr('data-filter-group');
     var $filterValue = $this.children().attr('data-filter-value');
 
+    $('.select-all').removeClass('active');
     $this.addClass('active');
-    $('.select-all').removeClass('active').css('cursor', 'pointer');
-
+    
     if ($filterValue === "*") {
         vertFilters = [];
         deviceFilters = [];
         comboFilters = [];
         $optionSet.find('.active').removeClass('active');
-        $('.select-all').addClass('active').css('cursor', 'default');
+        $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
     } else if ($group === "vertical")
         vertFilters.push($filterValue);
