@@ -389,10 +389,14 @@ $filterItems.click(function() {
     $('.select-all').removeClass('active');
     $this.addClass('active');
 
+    // if the filter clicked already has a class of active and doesn't have a class of select-all
+    // go through the current array and find the index of each element that has that filter value (put this in a function)
+    // then splice the array and return it
+
     if ($filterValue === "*") {
         vertFilters = [];
         deviceFilters = [];
-        comboFilters = [];
+        allFilters = [];
         $optionSet.find('.active').removeClass('active');
         $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
