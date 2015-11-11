@@ -9,9 +9,12 @@ var emptyNav = false;
 var firstPhoto = true;
 var $container = $('#posts');
 var $filterItems = $('.filter li');
-var vertFilters = [];
-var deviceFilters = [];
-var allFilters = [];
+var vertFilters = [], deviceFilters = [], formatFilters = [];
+var allFilters;
+var filters = {};
+var vertSelected;
+var deviceSelected;
+var formatSelected;
 
 function isotopeShitUp() {
     firstLoad = false;
@@ -388,10 +391,7 @@ $filterItems.click(function() {
 
     $('.select-all').removeClass('active');
     $this.addClass('active');
-
-    // if the filter clicked already has a class of active and doesn't have a class of select-all
-    // go through the current array and find the index of each element that has that filter value (put this in a function)
-    // then splice the array and return it
+    filters[$filterValue] = $group;
 
     if ($filterValue === "*") {
         vertFilters = [];
@@ -400,20 +400,44 @@ $filterItems.click(function() {
         $optionSet.find('.active').removeClass('active');
         $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
-    } else if ($group === "vertical")
-        vertFilters.push($filterValue);
-      else if ($group === "device")
-        deviceFilters.push($filterValue);
+    } else {
+        for (var prop in filters) {
+            if (filters[prop] === "vertical") {
+                vertFilters.push(prop);
+                vertSelected = true;
+            } else if (filters[prop] === "device") {
+                deviceFilters.push(prop);
+                deviceSelected = true;
+            } else if (filters[prop] === "ad-format") {
+                formatFilters.push(prop);
+                formatSelected = true;
+            }
+        }
+    }
 
-    if (deviceFilters.length === 0 && vertFilters.length > 0) 
+    if (vertSelected && !deviceSelected && !formatSelected)
         $container.isotope({ filter: vertFilters.join(', ') });
-    else if (vertFilters.length === 0 && deviceFilters.length > 0)
+    else if (deviceSelected && !vertSelcted && !formatSelected)
         $container.isotope({ filter: deviceFilters.join(', ') });
-    else if (vertFilters.length > 0 && deviceFilters.length > 0) {
-        allFilters = getComboFilters(vertFilters, deviceFilters);
-        selectFilters(allFilters, allFilters.length);
+    else if (formatSelected && !vertSelected && !deviceSelected)
+        $container.isotope({ filter: formatFilters.join(', ') });
+    else {
+        var selected = selectFilters();
+        combineFilters(allFilters, allFilters.length);
     }
 });
+
+// may have to move this inside of click handler?
+function selectFilters() {
+    var args = [];
+    if (vertSelected)
+        args.push(vertFilters);
+    if (deviceSelected)
+        args.push(deviceFilters);
+    if (formatSelected)
+        args.push(formatFilters);
+    allFilters = getComboFilters.apply(null, args);
+}
 
 function getComboFilters() {
     return _.reduce(arguments, function(a, b) {
@@ -425,7 +449,7 @@ function getComboFilters() {
     }, [ [] ]);
 }
 
-function selectFilters(filterElems, totalLength) {
+function combineFilters(filterElems, totalLength) {
     var result = [];
     for (var i = 0; i < totalLength; i++) {
         var combined = _.reduce(filterElems[i], function(memo, num) {
