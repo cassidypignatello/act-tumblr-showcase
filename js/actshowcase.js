@@ -398,6 +398,9 @@ $filterItems.click(function() {
         deviceFilters = [];
         allFilters = [];
         filters = {};
+        vertSelected = false;
+        deviceSelected = false;
+        formatSelected = false;
         $optionSet.find('.active').removeClass('active');
         $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
@@ -428,7 +431,6 @@ $filterItems.click(function() {
     }
 });
 
-// may have to move this inside of click handler?
 function selectFilters() {
     var args = [];
     if (vertSelected)
