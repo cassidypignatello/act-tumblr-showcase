@@ -397,6 +397,7 @@ $filterItems.click(function() {
         vertFilters = [];
         deviceFilters = [];
         allFilters = [];
+        filters = {};
         $optionSet.find('.active').removeClass('active');
         $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
         $container.isotope({ filter: $filterValue });
@@ -417,7 +418,7 @@ $filterItems.click(function() {
 
     if (vertSelected && !deviceSelected && !formatSelected)
         $container.isotope({ filter: vertFilters.join(', ') });
-    else if (deviceSelected && !vertSelcted && !formatSelected)
+    else if (deviceSelected && !vertSelected && !formatSelected)
         $container.isotope({ filter: deviceFilters.join(', ') });
     else if (formatSelected && !vertSelected && !deviceSelected)
         $container.isotope({ filter: formatFilters.join(', ') });
