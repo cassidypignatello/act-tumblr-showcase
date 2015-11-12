@@ -385,16 +385,17 @@ $(".nav-section h3").click(function(){
 });
 $filterItems.click(function() {
   var $this = $(this);
-  var $optionSet = $('.option-set');
   var $group = $this.closest('div').attr('data-filter-group');
   var $filterValue = $this.children().attr('data-filter-value');
   var selected;
+  var deleted;
 
   if (!$this.hasClass('select-all') && $this.hasClass('active')) {
     $this.removeClass('active');
     $this.removeClass('active-hover');
     delete filters[$filterValue];
-    sortFilters($filterValue);
+    deleted = true;
+    sortFilters($filterValue, deleted);
   } else {
     $('.select-all').removeClass('active');
     $this.addClass('active');
@@ -403,29 +404,9 @@ $filterItems.click(function() {
       sortFilters($filterValue);
     }
   }
-
-  if (vertSelected && !deviceSelected && !formatSelected) {
-    $container.isotope({ filter: vertFilters.join(', ') });
-    vertFilters = [];
-    vertSelected = false;
-  } else if (deviceSelected && !vertSelected && !formatSelected) {
-    $container.isotope({ filter: deviceFilters.join(', ') });
-    deviceFilters = [];
-    deviceSelected = false;
-  } else if (formatSelected && !vertSelected && !deviceSelected) {
-    $container.isotope({ filter: formatFilters.join(', ') });
-    formatFilters = [];
-    formatSelected = false;
-  }
-  else {
-    if ($filterValue !== '*') {
-      selected = selectFilters();
-      combineFilters(allFilters, allFilters.length);
-    }
-  }
 });
 
-function sortFilters(value) {
+function sortFilters(value, isDeleted) {
   if (value === "*") {
     vertFilters = [];
     deviceFilters = [];
@@ -434,10 +415,15 @@ function sortFilters(value) {
     vertSelected = false;
     deviceSelected = false;
     formatSelected = false;
-    $optionSet.find('.active').removeClass('active');
+    $('.option-set').find('.active').removeClass('active');
     $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
     $container.isotope({ filter: value });
   } else {
+    if (isDeleted) {
+      vertFilters = [];
+      deviceFilters = [];
+      allFilters = [];
+    }
     for (var prop in filters) {
       if (filters[prop] === "vertical") {
         vertFilters.push(prop);
@@ -450,19 +436,37 @@ function sortFilters(value) {
         formatSelected = true;
       }
     }
+    // maybe make this a function?
+    if (vertSelected && !deviceSelected && !formatSelected) {
+      $container.isotope({ filter: vertFilters.join(', ') });
+      vertFilters = [];
+      vertSelected = false;
+    } else if (deviceSelected && !vertSelected && !formatSelected) {
+      $container.isotope({ filter: deviceFilters.join(', ') });
+      deviceFilters = [];
+      deviceSelected = false;
+    } else if (formatSelected && !vertSelected && !deviceSelected) {
+      $container.isotope({ filter: formatFilters.join(', ') });
+      formatFilters = [];
+      formatSelected = false;
+    }
+    else {
+      selected = selectFilters();
+      combineFilters(allFilters, allFilters.length);
+    }
   }
 }
 
 function selectFilters() {
   var args = [];
   if (vertSelected) {
-    args.push(vertFilters);
+    args.push(_.uniq(vertFilters));
   }
   if (deviceSelected) {
-    args.push(deviceFilters);
+    args.push(_.uniq(deviceFilters));
   }
   if (formatSelected) {
-    args.push(formatFilters);
+    args.push(_.uniq(formatFilters));
   }
   allFilters = getComboFilters.apply(null, args);
 }
