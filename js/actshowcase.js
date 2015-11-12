@@ -393,17 +393,40 @@ $filterItems.click(function() {
   if (!$this.hasClass('select-all') && $this.hasClass('active')) {
     $this.removeClass('active');
     $this.removeClass('active-hover');
-    // delete filters[$filterValue];
-    // selected = selectFilters();
-    // combineFilters(allFilters, allFilters.length);
+    delete filters[$filterValue];
+    sortFilters($filterValue);
   } else {
     $('.select-all').removeClass('active');
     $this.addClass('active');
-    if (!filters.hasOwnProperty($filterValue))
+    if (!filters.hasOwnProperty($filterValue)) {
       filters[$filterValue] = $group;
+      sortFilters($filterValue);
+    }
   }
 
-  if ($filterValue === "*") {
+  if (vertSelected && !deviceSelected && !formatSelected) {
+    $container.isotope({ filter: vertFilters.join(', ') });
+    vertFilters = [];
+    vertSelected = false;
+  } else if (deviceSelected && !vertSelected && !formatSelected) {
+    $container.isotope({ filter: deviceFilters.join(', ') });
+    deviceFilters = [];
+    deviceSelected = false;
+  } else if (formatSelected && !vertSelected && !deviceSelected) {
+    $container.isotope({ filter: formatFilters.join(', ') });
+    formatFilters = [];
+    formatSelected = false;
+  }
+  else {
+    if ($filterValue !== '*') {
+      selected = selectFilters();
+      combineFilters(allFilters, allFilters.length);
+    }
+  }
+});
+
+function sortFilters(value) {
+  if (value === "*") {
     vertFilters = [];
     deviceFilters = [];
     allFilters = [];
@@ -413,7 +436,7 @@ $filterItems.click(function() {
     formatSelected = false;
     $optionSet.find('.active').removeClass('active');
     $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
-    $container.isotope({ filter: $filterValue });
+    $container.isotope({ filter: value });
   } else {
     for (var prop in filters) {
       if (filters[prop] === "vertical") {
@@ -427,23 +450,8 @@ $filterItems.click(function() {
         formatSelected = true;
       }
     }
-    filters = {};
   }
-
-  if (vertSelected && !deviceSelected && !formatSelected) {
-    $container.isotope({ filter: vertFilters.join(', ') });
-  } else if (deviceSelected && !vertSelected && !formatSelected) {
-    $container.isotope({ filter: deviceFilters.join(', ') });
-  } else if (formatSelected && !vertSelected && !deviceSelected) {
-    $container.isotope({ filter: formatFilters.join(', ') });
-  }
-  else {
-    if ($filterValue !== '*') {
-      selected = selectFilters();
-      combineFilters(allFilters, allFilters.length);
-    }
-  }
-});
+}
 
 function selectFilters() {
   var args = [];
