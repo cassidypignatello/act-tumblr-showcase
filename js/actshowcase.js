@@ -410,6 +410,7 @@ function sortFilters(value, isDeleted) {
   if (value === "*") {
     vertFilters = [];
     deviceFilters = [];
+    formatFilters = [];
     allFilters = [];
     filters = {};
     vertSelected = false;
@@ -422,7 +423,11 @@ function sortFilters(value, isDeleted) {
     if (isDeleted) {
       vertFilters = [];
       deviceFilters = [];
+      formatFilters = [];
       allFilters = [];
+      vertSelected = false;
+      deviceSelected = false;
+      formatSelected = false;
     }
     for (var prop in filters) {
       if (filters[prop] === "vertical") {
