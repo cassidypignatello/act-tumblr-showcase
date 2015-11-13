@@ -443,36 +443,27 @@ function sortFilters(value, isDeleted) {
 
 function combineOrNot(vert, device, format) {
   var truthyFilters = 0;
-  for (var i = 0; i < Things.length; i++) {
-    Things[i]
-  };
-
-  if (vert && !device && !format) {
-      $container.isotope({ filter: vertFilters.join(', ') });
-      resetFilters();
-    } else if (device && !vert && !format) {
-      $container.isotope({ filter: deviceFilters.join(', ') });
-      resetFilters();
-    } else if (format && !vert && !device) {
-      $container.isotope({ filter: formatFilters.join(', ') });
-      resetFilters();
-    } else {
-      selected = selectFilters();
-      combineFilters(allFilters, allFilters.length);
-    }
+  for (var i = 0; i < arguments.length; i++) {
+    if (arguments[i]) { truthyFilters++; }
+  }
+  if (truthyFilters > 1) {
+    selected = selectFilters();
+    combineFilters(allFilters, allFilters.length);
+  } 
+  else if (vert && !device && !format) { selector = vertFilters.join(', '); } 
+  else if (device && !vert && !format) { selector = deviceFilters.join(', '); } 
+  else if (format && !vert && !device) { selector = formatFilters.join(', '); }
+  if (truthyFilters === 1) {
+    $container.isotope({ filter: selector });
+    resetFilters();
+  }
 }
 
 function selectFilters() {
   var args = [];
-  if (vertSelected) {
-    args.push(_.uniq(vertFilters));
-  }
-  if (deviceSelected) {
-    args.push(_.uniq(deviceFilters));
-  }
-  if (formatSelected) {
-    args.push(_.uniq(formatFilters));
-  }
+  if (vertSelected) { args.push(_.uniq(vertFilters)); }
+  if (deviceSelected) { args.push(_.uniq(deviceFilters)); }
+  if (formatSelected) { args.push(_.uniq(formatFilters)); }
   allFilters = getComboFilters.apply(null, args);
 }
 
