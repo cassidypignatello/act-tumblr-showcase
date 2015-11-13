@@ -10,7 +10,7 @@ var firstPhoto = true;
 var $container = $('#posts');
 var $filterItems = $('.filter li');
 var vertFilters = [], deviceFilters = [], formatFilters = [];
-var allFilters, vertSelected, deviceSelected, formatSelected;
+var allFilters, vertSelected, deviceSelected, formatSelected, selector;
 var filters = {};
 
 function isotopeShitUp() {
@@ -442,6 +442,11 @@ function sortFilters(value, isDeleted) {
 }
 
 function combineOrNot(vert, device, format) {
+  var truthyFilters = 0;
+  for (var i = 0; i < Things.length; i++) {
+    Things[i]
+  };
+
   if (vert && !device && !format) {
       $container.isotope({ filter: vertFilters.join(', ') });
       resetFilters();
@@ -489,7 +494,7 @@ function combineFilters(filterElems, totalLength) {
     });
     result.push(combined);
   }
-  var selector = result.join(', ');
+  selector = result.join(', ');
   $container.isotope({ filter: selector });
 }
 
