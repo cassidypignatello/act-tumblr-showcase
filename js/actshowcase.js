@@ -437,21 +437,24 @@ function sortFilters(value, isDeleted) {
         formatSelected = true;
       }
     }
-    if (vertSelected && !deviceSelected && !formatSelected) {
+    combineOrNot(vertSelected, deviceSelected, formatSelected);
+  }
+}
+
+function combineOrNot(vert, device, format) {
+  if (vert && !device && !format) {
       $container.isotope({ filter: vertFilters.join(', ') });
       resetFilters();
-    } else if (deviceSelected && !vertSelected && !formatSelected) {
+    } else if (device && !vert && !format) {
       $container.isotope({ filter: deviceFilters.join(', ') });
       resetFilters();
-    } else if (formatSelected && !vertSelected && !deviceSelected) {
+    } else if (format && !vert && !device) {
       $container.isotope({ filter: formatFilters.join(', ') });
       resetFilters();
-    }
-    else {
+    } else {
       selected = selectFilters();
       combineFilters(allFilters, allFilters.length);
     }
-  }
 }
 
 function selectFilters() {
