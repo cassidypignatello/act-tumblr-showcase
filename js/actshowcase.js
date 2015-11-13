@@ -10,11 +10,8 @@ var firstPhoto = true;
 var $container = $('#posts');
 var $filterItems = $('.filter li');
 var vertFilters = [], deviceFilters = [], formatFilters = [];
-var allFilters;
+var allFilters, vertSelected, deviceSelected, formatSelected;
 var filters = {};
-var vertSelected;
-var deviceSelected;
-var formatSelected;
 
 function isotopeShitUp() {
   firstLoad = false;
@@ -360,6 +357,7 @@ $(document).ajaxError(function(c, d, b) {
     $(".more").remove();
   }
 });
+
 $filterItems.hover(function() {
   var $hasActiveClass = $(this).hasClass('active');
   var $selectAll = $('.select-all, .select-all > a');
@@ -372,17 +370,19 @@ $filterItems.hover(function() {
 }, function() {
   $(this).removeClass('active-hover');
 });
+
 $(".nav-section h3").click(function(){
   var $navList = $(this).closest('.nav-section').children('ul');
   var $navArrow = $(this).children('img.section-arrow');
-  if (!$navList.hasClass("nav-section-active")) {
-  $navList.addClass('nav-section-active');
-  $navArrow.addClass('section-arrow-active');
+  if (!$navList.hasClass('nav-section-active')) {
+    $navList.addClass('nav-section-active');
+    $navArrow.addClass('section-arrow-active');
   } else {
-  $navList.removeClass('nav-section-active');
-  $navArrow.removeClass('section-arrow-active');
+    $navList.removeClass('nav-section-active');
+    $navArrow.removeClass('section-arrow-active');
   }
 });
+
 $filterItems.click(function() {
   var $this = $(this);
   var $group = $this.closest('div').attr('data-filter-group');
@@ -391,8 +391,7 @@ $filterItems.click(function() {
   var deleted;
 
   if (!$this.hasClass('select-all') && $this.hasClass('active')) {
-    $this.removeClass('active');
-    $this.removeClass('active-hover');
+    $this.removeClass('active active-hover');
     delete filters[$filterValue];
     deleted = true;
     sortFilters($filterValue, deleted);
@@ -406,29 +405,26 @@ $filterItems.click(function() {
   }
 });
 
+function resetFilters() {
+  vertFilters = [];
+  deviceFilters = [];
+  formatFilters = [];
+  allFilters = [];
+  vertSelected = false;
+  deviceSelected = false;
+  formatSelected = false;
+}
+
 function sortFilters(value, isDeleted) {
   if (value === "*") {
-    vertFilters = [];
-    deviceFilters = [];
-    formatFilters = [];
-    allFilters = [];
+    resetFilters();
     filters = {};
-    vertSelected = false;
-    deviceSelected = false;
-    formatSelected = false;
     $('.option-set').find('.active').removeClass('active');
     $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
     $container.isotope({ filter: value });
   } else {
-    if (isDeleted) {
-      vertFilters = [];
-      deviceFilters = [];
-      formatFilters = [];
-      allFilters = [];
-      vertSelected = false;
-      deviceSelected = false;
-      formatSelected = false;
-    }
+    if (isDeleted)
+      resetFilters();
     for (var prop in filters) {
       if (filters[prop] === "vertical") {
         vertFilters.push(prop);
@@ -441,19 +437,15 @@ function sortFilters(value, isDeleted) {
         formatSelected = true;
       }
     }
-    // maybe make this a function?
     if (vertSelected && !deviceSelected && !formatSelected) {
       $container.isotope({ filter: vertFilters.join(', ') });
-      vertFilters = [];
-      vertSelected = false;
+      resetFilters();
     } else if (deviceSelected && !vertSelected && !formatSelected) {
       $container.isotope({ filter: deviceFilters.join(', ') });
-      deviceFilters = [];
-      deviceSelected = false;
+      resetFilters();
     } else if (formatSelected && !vertSelected && !deviceSelected) {
       $container.isotope({ filter: formatFilters.join(', ') });
-      formatFilters = [];
-      formatSelected = false;
+      resetFilters();
     }
     else {
       selected = selectFilters();
