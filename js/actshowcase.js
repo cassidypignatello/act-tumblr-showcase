@@ -416,12 +416,12 @@ function resetFilters() {
 }
 
 function sortFilters(value, isDeleted) {
-  if (value === "*") {
+  if (value === "*" || Object.keys(filters).length === 0) {
     resetFilters();
     filters = {};
     $('.option-set').find('.active').removeClass('active');
     $('.select-all, .select-all > a').addClass('active').css('cursor', 'default');
-    $container.isotope({ filter: value });
+    $container.isotope({ filter: '*' });
   } else {
     if (isDeleted)
       resetFilters();
