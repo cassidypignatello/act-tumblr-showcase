@@ -323,18 +323,16 @@ $posts.infinitescroll({
     addIsotopeShit(b);
   }
 });
-$posts.infinitescroll("binding", "unbind");
+$posts.infinitescroll("pause");
 $(".more").click(function(b) {
   $(".resetNote").hide();
-  if ($(".all-tag").hasClass("active") || $(".all-type").hasClass("active")) {
+  if ($(".select-all").hasClass("active")) {
     $posts.infinitescroll("retrieve");
     $(this).css("display", "block");
   } else {
-    $("#posts").isotope({
-      filter: "*"
-    });
-    $(".filter li a").removeClass("active");
-    $(".all-type").addClass("active");
+    $("#posts").isotope({ filter: "*" });
+    $filterItems.removeClass("active");
+    $(".select-all").addClass("active");
     $.scrollTo($(document).height(), {
       duration: 700,
       axis: "y",
