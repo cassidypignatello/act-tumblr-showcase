@@ -200,23 +200,24 @@ function clearTags() {
 }
 
 function listTags() {
-  $(".filters.tag").empty();
-  $(".filters.tag").append('<li><a data-filter=".posttap" class="all-tag">all</a></li>');
-   // $(".filters.tag").append('<li><a data-filter=".autos.photo">autos</a></li>');
-  $(".filters.tag").append('<li><a data-filter=".autos">autos</a></li>');
+  $("#features-filters").empty();
+  // $(".filters.tag").append('<li><a data-filter=".posttap" class="all-tag">all</a></li>');
+  //  // $(".filters.tag").append('<li><a data-filter=".autos.photo">autos</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".autos">autos</a></li>');
 
-  $(".filters.tag").append('<li><a data-filter=".entertainment">entertainment</a></li>');
-  $(".filters.tag").append('<li><a data-filter=".finance">finance</a></li>');
-  $(".filters.tag").append('<li><a data-filter=".pharma-health">pharma/health</a></li>');
-  $(".filters.tag").append('<li><a data-filter=".retail-cpg">retail/cpg</a></li>');
-  $(".filters.tag").append('<li><a data-filter=".tech-telco">tech/telco</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".entertainment">entertainment</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".finance">finance</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".pharma-health">pharma/health</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".retail-cpg">retail/cpg</a></li>');
+  // $(".filters.tag").append('<li><a data-filter=".tech-telco">tech/telco</a></li>');
   $(sortedTags).each(function(b, a) {
     tagSlug = convertToSlug(a);
     if ($(".post").hasClass(tagSlug)) {
-      $(".filters.tag").append('<li><a data-filter=".' + tagSlug + '">' + a + "</a></li>");
+      $("#features-filters").append('<li><a href="#" class="ad-features ' + tagSlug + '"' + ' data-filter-value=".' + tagSlug + '">' + tagSlug + '</a></li>');
     }
   });
-  $(".filter .tag").show();
+  // $(".filter .tag").show();
+  // $filterItems = $('.filter li');
 }
 
 function listTypes() {
