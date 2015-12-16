@@ -9,8 +9,8 @@ var emptyNav = false;
 var firstPhoto = true;
 var $container = $('#posts');
 var $filterItems = $('.filter li');
-var vertFilters = [], deviceFilters = [], formatFilters = [];
-var allFilters, vertSelected, deviceSelected, formatSelected, selector;
+var vertFilters = [], deviceFilters = [], formatFilters = [], featureFilters = [];
+var allFilters, vertSelected, deviceSelected, formatSelected, featureSelected, selector;
 var filters = {};
 
 function isotopeShitUp() {
@@ -333,6 +333,7 @@ $(".more").click(function(b) {
     $("#posts").isotope({ filter: "*" });
     $filterItems.removeClass("active");
     $(".select-all").addClass("active");
+    sortFilters($filterValue);
     $.scrollTo($(document).height(), {
       duration: 700,
       axis: "y",
@@ -404,13 +405,8 @@ $filterItems.click(function() {
 });
 
 function resetFilters() {
-  vertFilters = [];
-  deviceFilters = [];
-  formatFilters = [];
-  allFilters = [];
-  vertSelected = false;
-  deviceSelected = false;
-  formatSelected = false;
+  vertFilters = [], deviceFilters = [], formatFilters = [], featureFilters = [], allFilters = [];
+  vertSelected = false, deviceSelected = false, formatSelected = false, featureSelected = false;
 }
 
 function sortFilters(value, isDeleted) {
@@ -433,13 +429,16 @@ function sortFilters(value, isDeleted) {
       } else if (filters[prop] === "ad-format") {
         formatFilters.push(prop);
         formatSelected = true;
+      } else if (filters[prop] === "ad-features") {
+        featureFilters.push(prop);
+        featureSelected = true;
       }
     }
-    combineOrNot(vertSelected, deviceSelected, formatSelected);
+    combineOrNot(vertSelected, deviceSelected, formatSelected, featureSelected);
   }
 }
 
-function combineOrNot(vert, device, format) {
+function combineOrNot(vert, device, format, features) {
   var truthyFilters = 0;
   for (var i = 0; i < arguments.length; i++) {
     if (arguments[i]) { truthyFilters++; }
@@ -448,9 +447,10 @@ function combineOrNot(vert, device, format) {
     selected = selectFilters();
     combineFilters(allFilters, allFilters.length);
   } 
-  else if (vert && !device && !format) { selector = vertFilters.join(', '); } 
-  else if (device && !vert && !format) { selector = deviceFilters.join(', '); } 
-  else if (format && !vert && !device) { selector = formatFilters.join(', '); }
+  else if (vert && !device && !format && !features) { selector = vertFilters.join(', '); } 
+  else if (device && !vert && !format && !features) { selector = deviceFilters.join(', '); } 
+  else if (format && !vert && !device && !features) { selector = formatFilters.join(', '); }
+  else if (features && !vert && !device && !format) { selector = featureFilters.join(', '); }
   if (truthyFilters === 1) {
     $container.isotope({ filter: selector });
     resetFilters();
@@ -462,6 +462,7 @@ function selectFilters() {
   if (vertSelected) { args.push(_.uniq(vertFilters)); }
   if (deviceSelected) { args.push(_.uniq(deviceFilters)); }
   if (formatSelected) { args.push(_.uniq(formatFilters)); }
+  if (featureSelected) { args.push(_.uniq(featureFilters)); }
   allFilters = getComboFilters.apply(null, args);
 }
 
