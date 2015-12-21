@@ -200,23 +200,25 @@ function clearTags() {
 }
 
 function listTags() {
+  var featureTags = [
+    "App Install - Static", "App Install - Video",
+    "Carousel", "Cascading", "Custom", "Custom Homepage", "Expandable", "Floating",
+    "Full Page Video", "Interactive", "Post-Tap - Custom", "Post-Tap - Static", 
+    "Post-Tap - Map", "Post-Tap - Video", "Post-Tap - Gyro", "Motion", "Standard", 
+    "Static", "Tumblr Sponsored Day", "Tumblr Sponsored Post", "Tumblr Sponsored Video Post", 
+    "Tumblr Campaign Page", "Video", "Ad Bar", "Ad Engage", "Bumper", "Canvas", "Clickable", 
+    "Control Bar", "Extender", "Filmstrip", "Full Player", "Ad Selector", "Time Sync", 
+    "Smartview Skippable", "Standard Pre-Roll With Companion Banner"
+  ];
   $("#features-filters").empty();
-  // $(".filters.tag").append('<li><a data-filter=".posttap" class="all-tag">all</a></li>');
-  //  // $(".filters.tag").append('<li><a data-filter=".autos.photo">autos</a></li>');
-  // $(".filters.tag").append('<li><a data-filter=".autos">autos</a></li>');
-
-  // $(".filters.tag").append('<li><a data-filter=".entertainment">entertainment</a></li>');
-  // $(".filters.tag").append('<li><a data-filter=".finance">finance</a></li>');
-  // $(".filters.tag").append('<li><a data-filter=".pharma-health">pharma/health</a></li>');
-  // $(".filters.tag").append('<li><a data-filter=".retail-cpg">retail/cpg</a></li>');
-  // $(".filters.tag").append('<li><a data-filter=".tech-telco">tech/telco</a></li>');
   $(sortedTags).each(function(b, a) {
     tagSlug = convertToSlug(a);
-    if ($(".post").hasClass(tagSlug)) {
-      $("#features-filters").append('<li><a href="#" class="ad-features ' + tagSlug + '"' + ' data-filter-value=".' + tagSlug + '">' + tagSlug + '</a></li>');
+    for (var i = 0; i < featureTags.length; i++) {
+      if (tagSlug === featureTags[i].toLowerCase().replace(/\s|\-/g, "") && $('.post').hasClass(tagSlug)) {
+        $("#features-filters").append('<li><a href="#" class="ad-features ' + tagSlug + '"' + ' data-filter-value=".' + tagSlug + '">' + tagSlug + '</a></li>');
+      }
     }
   });
-  // $(".filter .tag").show();
 }
 
 function listTypes() {
@@ -343,6 +345,7 @@ $(".more").click(function(b) {
       }
     });
   }
+  clearTags();
 });
 $(".more").hover(function() {
   if ($(".all-tag").hasClass("active") || $(".all-type").hasClass("active")) {} else {
