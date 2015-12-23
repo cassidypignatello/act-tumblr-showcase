@@ -188,12 +188,12 @@ function clearTags() {
   $(allTags).each(function(c, b) {
     tags[b] = (tags[b] ? tags[b] + 1 : 1);
   });
-  for (prop in tags) {
-    tagFrequency = tags[prop];
-    if (tagFrequency === 1) {
-      delete tags[prop];
-    }
-  }
+  // for (prop in tags) {
+  //   tagFrequency = tags[prop];
+  //   if (tagFrequency === 1) {
+  //     delete tags[prop];
+  //   }
+  // }
   var a = getProps(tags);
   sortedTags = sortTags(a, tags).reverse();
   listTags();
