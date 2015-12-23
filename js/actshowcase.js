@@ -210,12 +210,14 @@ function listTags() {
     "Control Bar", "Extender", "Filmstrip", "Full Player", "Ad Selector", "Time Sync", 
     "Smartview Skippable", "Standard Pre-Roll With Companion Banner"
   ];
+  var featureTagMatches = [];
   $("#features-filters").empty();
   $(sortedTags).each(function(b, a) {
     tagSlug = convertToSlug(a);
     for (var i = 0; i < featureTags.length; i++) {
       if (tagSlug === featureTags[i].toLowerCase().replace(/\s|\-/g, "") && $('.post').hasClass(tagSlug)) {
-        $("#features-filters").append('<li><a href="#" class="ad-features ' + tagSlug + '"' + ' data-filter-value=".' + tagSlug + '">' + tagSlug + '</a></li>');
+        featureTagMatches.push(tagSlug).sort();
+        $("#features-filters").append('<li><a href="#" class="ad-features ' + tagSlug + '"' + ' data-filter-value=".' + tagSlug + '">' + featureTags[i].toLowerCase() + '</a></li>');
       }
     }
   });
