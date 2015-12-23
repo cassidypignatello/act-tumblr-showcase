@@ -490,5 +490,6 @@ function combineFilters(filterElems, totalLength) {
 }
 
 domain = window.location.protocol + "//" + window.location.hostname;
+$container.isotope({ filter: '*' });
 getTags();
 listTypes();
