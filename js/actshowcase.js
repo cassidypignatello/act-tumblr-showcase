@@ -41,6 +41,13 @@ function addIsotopeShit(a) {
     }).animate({
       opacity: 1
     });
+    $("#posts .caption .y-tag-container iframe").remove();
+    $(".index .post .postInner").mouseover(function(){
+      $(this).find(".thumb-hover").css('display', 'none');
+    });
+    $(".index .post .postInner").mouseout(function(){
+      $(".thumb-hover").css('display', 'block');
+    });
     $("#infscr-loading").fadeOut();
   });
 }
@@ -130,7 +137,7 @@ function checkThumbsAreCreated() {
 function postEvergreening() {
   $("#posts .post:not(.video, .photoset) iframe, #posts .post:not(.video, .photoset) object").each(function() {
     var a = $(this).parents(".postInner").find(".permaLink a").attr("href");
-    $(this).replaceWith('<a class="flash-content" href="' + a + '">Watch</a>');
+    // $(this).replaceWith('<a class="flash-content" href="' + a + '">Watch</a>');
   });
   $(".video, .audio, .photo, .photoset").each(function() {
     var a = $(this).find(".caption").length;
@@ -188,6 +195,12 @@ function clearTags() {
   $(allTags).each(function(c, b) {
     tags[b] = (tags[b] ? tags[b] + 1 : 1);
   });
+  // for (prop in tags) {
+  //   tagFrequency = tags[prop];
+  //   if (tagFrequency === 1) {
+  //     delete tags[prop];
+  //   }
+  // }
   var a = getProps(tags);
   sortedTags = sortTags(a, tags).reverse().sort();
   listTags();
@@ -486,6 +499,5 @@ function combineFilters(filterElems, totalLength) {
 }
 
 domain = window.location.protocol + "//" + window.location.hostname;
-$container.isotope({ filter: '*' });
 getTags();
 listTypes();
