@@ -430,18 +430,22 @@ function sortFilters(value, isDeleted) {
     if (isDeleted)
       resetFilters();
     for (var prop in filters) {
-      if (filters[prop] === "vertical") {
-        vertFilters.push(prop);
-        vertSelected = true;
-      } else if (filters[prop] === "device") {
-        deviceFilters.push(prop);
-        deviceSelected = true;
-      } else if (filters[prop] === "ad-format") {
-        formatFilters.push(prop);
-        formatSelected = true;
-      } else if (filters[prop] === "ad-features") {
-        featureFilters.push(prop);
-        featureSelected = true;
+      switch(filters[prop]) 
+        case "vertical":
+          vertFilters.push(prop);
+          vertSelected = true;
+          break;
+        case "device":
+          deviceFilters.push(prop);
+          deviceSelected = true;
+          break;
+        case "ad-format":
+          formatFilters.push(prop);
+          formatSelected = true;
+          break;
+        case "ad-features":
+          featureFilters.push(prop);
+          featureSelected = true;
       }
     }
     combineOrNot(vertSelected, deviceSelected, formatSelected, featureSelected);
